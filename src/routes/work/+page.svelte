@@ -65,7 +65,7 @@
                 <text class="year" x={25+i*40*timeline.length} y=80 text-anchor="middle">{event.year}</text>
                 <circle cx={25 + i*40*timeline.length} cy=95 r={$dotSize}/>
             </g>
-        {/each}
+        {/each} 
         
     </svg>
 </div>

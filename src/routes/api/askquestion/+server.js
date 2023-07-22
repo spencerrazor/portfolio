@@ -1,4 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
+import { OPENAI_API_KEY } from '$env/static/private';
 
 
 export async function POST({ request }) {
@@ -7,7 +8,7 @@ export async function POST({ request }) {
     let answer = 'not implemented yet';
 
     const configuration = new Configuration({
-      apiKey: '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', // REMOVE LATER PLEASE DON'T BE STUPIDS
+      apiKey: OPENAI_API_KEY, // REMOVE LATER PLEASE DON'T BE STUPIDS
     });
     const openai = new OpenAIApi(configuration);
     
@@ -71,20 +72,7 @@ export async function POST({ request }) {
         //     const responseObject = JSON.parse(jsonString);
         // });
     } catch (error) {
-        if (error.response?.status) {
-            console.error(error.response.status, error.message);
-            error.response.data.on('data', data => {
-                const message = data.toString();
-                try {
-                    const parsed = JSON.parse(message);
-                    console.error('An error occurred during OpenAI request: ', parsed);
-                } catch(error) {
-                    console.error('An error occurred during OpenAI request: ', message);
-                }
-            });
-        } else {
-            console.error('An error occurred during OpenAI request', error);
-        }
+        console.log(error.response.data);
     }
 
     return new Response(JSON.stringify({'answer': answer}), {
