@@ -1,5 +1,4 @@
 import { Configuration, OpenAIApi } from "openai";
-import '$lib/prompts.txt'
 
 
 export async function POST({ request }) {
