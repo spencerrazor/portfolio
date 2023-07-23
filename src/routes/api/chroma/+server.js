@@ -5,7 +5,7 @@ import { OPENAI_API_KEY } from '$env/static/private';
 
 const client = new ChromaClient();
 const embedder = new OpenAIEmbeddingFunction({openai_api_key: OPENAI_API_KEY});
-const collection = await client.createCollection('test', {}, embedder);
+// const collection = await client.createCollection('test', {}, embedder);
 
 export async function POST({ request }) {
     const input = await request.json();
