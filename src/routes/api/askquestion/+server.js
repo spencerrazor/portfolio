@@ -1,7 +1,6 @@
 import { Configuration, OpenAIApi } from "openai";
 import { OPENAI_API_KEY } from '$env/static/private';
 
-
 export async function POST({ request }) {
     const { prompt } = await request.json();
 

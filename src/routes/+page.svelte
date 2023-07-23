@@ -1,10 +1,23 @@
 <script>
     let gptanswer = 'I know nothing about Spencer at the moment';
     import { PUBLIC_OPENAI_API_KEY } from '$env/static/public';
-    export let data;
     let answer;
 
     let inputText = '';
+
+
+    async function getChroma(e) {
+        const response = await fetch('/api/chroma', {
+                method: 'POST',
+                body: JSON.stringify([0,1,2,3,4]),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            const status = await response.json(); 
+            console.log(status);
+    }
 
     async function handleSubmit(event) {
         if (event.key === 'Enter') {
@@ -67,5 +80,6 @@
         </label>
             <div class="bg-surface-500/30 p-4 overflow-y-auto">{answer ? answer : ''}</div>
     </div>
+    <button on:click={getChroma}>Get Chroma</button>
                         
 </div>
