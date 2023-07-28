@@ -66,20 +66,20 @@
     // }
 
 </script>
+<section class="lg:h-[calc(100vh-100px)] h-[calc(100vh-50px)] drop-shadow-[0_0_25px_rgba(255,255,255,0.20)]">
+        <div class="w-3/4 flex flex-col m-auto justify-center h-full">
+            <div class="basis-1/3">
+                <h1 class="h1 pb-5">Hi! I'm <span class="text-secondary-500">Spencer</span> 👋</h1>
+                <h2 class="h2 pb-5">Learn about with GPT powered search!</h2>
+                <label class="label">
+                    <span class="h3 block pb-5">Ask a question❓(e.g. What experience do you have with Python?)</span>
+                    <!-- (input here) -->
+                    <form on:submit|preventDefault={handleSubmit}>
+                        <input bind:value={inputText} on:keydown={handleSubmit} class="input p-1 pl-3" title="Input (text)" type="text" placeholder="Ask the AI Spencer 🤖" />
+                    </form>
+                </label>
+            </div>
+            <div class="p-4 h-full overflow-y-auto basis-1/3">{answer ? answer : ''}</div>
+        </div> 
 
-<div class="grid place-items-center h-screen gap-1 grid-rows-2">
-    <div class="w-3/4">
-        <h1 class="h1 pb-5">Hello there! 👋</h1>
-        <h2 class="h2 pb-5">Learn about ME with GPT powered search!</h2>
-        <label class="label">
-            <span class="h3 block pb-5">Ask a question❓(e.g. What experience do you have with Python?)</span>
-            <!-- (input here) -->
-            <form on:submit|preventDefault={handleSubmit}>
-                <input bind:value={inputText} on:keydown={handleSubmit} class="input p-1" title="Input (text)" type="text" placeholder="Ask the AI Spencer 🤖" />
-            </form>
-        </label>
-            <div class="bg-surface-500/30 p-4 overflow-y-auto">{answer ? answer : ''}</div>
-    </div>
-    <button on:click={getChroma}>Get Chroma</button>
-                        
-</div>
+</section>

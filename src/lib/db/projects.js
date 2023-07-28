@@ -1,0 +1,66 @@
+import portfoliologo from "$lib/portfoliologo.png";
+
+export const projects = [
+    {
+        year: 2023,
+        name: 'Heartbeat Beat',
+        description: `Recommending music based off your heartrate.
+        Handles data collection via sensors and Spotify API,
+        training a recommender system based off time series data,
+        and building a realtime website that shows heartrate and recommendations.`,
+        github: 'https://github.com/spencerrazor/heartbeatbeat',
+        website: 'https://github.com/spencerrazor/heartbeatbeat',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7_HT_3dSC6StBbOFFnFoIhrp1wqQdnDP5_w&usqp=CAU'
+    },
+    {
+        year: 2023,
+        name: 'Portfolio Website',
+        description: `Fully built and hosted website. 100% SvelteKit. Handles routing, APIs,
+        state management, and SSR/CSR.`,
+        github: 'https://github.com/spencerrazor/heartbeatbeat',
+        website: 'Not deployed',
+        image: portfoliologo
+    },
+    {
+        year: 2022,
+        name: 'Intent Classification',
+        description: `Classifying user intent based off text.
+        Utilizes Amazon Intent Dataset to classify intent of user into
+        60 different classes. This transformer based model achieves ~90%
+        accuracy. The model utilized advanced techiques, such as Layered learning rate decay,
+        reinitialization, SupConLoss, and SimCLR.`,
+        github: 'https://github.com/spencerrazor/heartbeatbeat',
+        website: 'Not deployed',
+        image: 'https://1000logos.net/wp-content/uploads/2016/10/Amazon-logo-meaning.jpg'
+    },
+    {
+        year: 2022,
+        name: 'Hand Gesture Detection',
+        description: `A wireless hand movement detector that can classify 3 different hand gestures.
+        Hardware built with an accelerometer, Raspberry Pi Pico, and Bluetooth. Collected, processed, and feature
+        engineered data for logistic regression model. The model acheived 94% accuracy.`,
+        github: 'https://github.com/spencerrazor/heartbeatbeat',
+        website: 'Not deployed',
+        image: 'https://cdn.pixabay.com/photo/2014/04/05/11/40/punch-316605_1280.jpg'
+    },
+    {
+        year: 2021,
+        name: 'Cancer Prediction',
+        description: `A custom Naive Bayes classifcation model that predicts whether a cell has cancer or not.
+        Notebook includes feature selection, EDA, visualizations, and the model's algorithm from scratch.
+        The model acheives 88% accuracy.`,
+        github: 'https://github.com/spencerrazor/naive_bayes',
+        website: 'Not deployed',
+        image: `data:image/jpeg;base64,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`
+    },
+    {
+        year: 2020,
+        name: 'Stock Scooper',
+        description: `Stock analytics website that provides information about the most trending stocks
+        that stock influencers talk about. Uses the Twitter API, React.js, Python to provide useful stock
+        statistics and a sentiment analysis of the stock on Twitter.`,
+        github: 'https://github.com/spencerrazor/heartbeatbeat',
+        website: 'https://stockscooper.com',
+        image: 'https://cdn.pixabay.com/photo/2016/11/27/21/42/stock-1863880_1280.jpg'
+    },
+]

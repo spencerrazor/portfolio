@@ -4,199 +4,83 @@
     import { page } from '$app/stores';
     let currentTile = 0;
     let tabSet = 0;
+    import { ProgressBar } from '@skeletonlabs/skeleton';
+	import { parse } from 'svelte/compiler';
 
-    let tableArr = [
-        {'technology':'Python', 'profiency':'Advanced', 'experience': '4+ years', 'type': 'Programming Language'},
-        {'technology':'Javascript', 'profiency':'Advanced', 'experience': '3+ years', 'type': 'Programming Language'},
-        {'technology':'SQL', 'profiency':'Advanced', 'experience': '3+ years', 'type': 'Programming Language'},
-        {'technology':'Java', 'profiency':'Intermediate', 'experience': '2+ years', 'type': 'Programming Language'},
-        {'technology':'HTML', 'profiency':'Intermediate', 'experience': '4+ years', 'type': 'Web Development'},
-        {'technology':'CSS', 'profiency':'Intermediate', 'experience': '4+ years', 'type': 'Web Development'},
-        {'technology':'Pandas', 'profiency':'Advanced', 'experience': '3+ years', 'type': 'Data Analysis Library'},
-        {'technology':'Scikit-Learn', 'profiency':'Advanced', 'experience': '2+ years', 'type': 'Machine Learning Library'},
-        {'technology':'PyTorch', 'profiency':'Intermediate', 'experience': '2+ years', 'type': 'Machine learning Library'},
-        {'technology':'Svelte', 'profiency':'Beginner', 'experience': 'less than 1 year', 'type': 'Front-end Framework'},
-        {'technology':'React', 'profiency':'Intermediate', 'experience': '2+ years', 'type': 'Front-end Framework'},
-        {'technology':'PostgreSQL', 'profiency':'Intermediate', 'experience': '1+ years', 'type': 'DBMS'},
-        {'technology':'SQL Server', 'profiency':'Intermediate', 'experience': '3+ years', 'type': 'DBMS'},
-        {'technology':'SQL Server', 'profiency':'Intermediate', 'experience': '3+ years', 'type': 'DBMS'},
-        {'technology':'SQL Server', 'profiency':'Intermediate', 'experience': '3+ years', 'type': 'DBMS'},
-        {'technology':'SQL Server', 'profiency':'Intermediate', 'experience': '3+ years', 'type': 'DBMS'},
+    export let data;
 
-        ];
-    let frontend = [
-        {'technology':'Javascript', 'profiency':'Advanced', 'experience': '3+ years', 'type': 'Programming Language'},
-        {'technology':'HTML', 'profiency':'Intermediate', 'experience': '4+ years', 'type': 'Web Development'},
-        {'technology':'CSS', 'profiency':'Intermediate', 'experience': '4+ years', 'type': 'Web Development'},
-        {'technology':'Svelte', 'profiency':'Beginner', 'experience': 'less than 1 year', 'type': 'Front-end Framework'},
-        {'technology':'React', 'profiency':'Intermediate', 'experience': '2+ years', 'type': 'Front-end Framework'},
-        {'technology':'REST API', 'profiency':'Intermediate', 'experience': '1+ years', 'type': 'Concept'},
+    let filters = [
+        {filter:'Front-end', color:false},
+        {filter:'Back-end', color:false},
+        {filter:'Database', color:false},
+        {filter:'Cloud', color:false},
+        {filter:'Data Science', color:false},
+        {filter:'Data Analysis', color:false},
+        {filter:'Data Engineering', color:false},
+        {filter:'Machine Learning', color:false},
+        {filter:'Deep Learning', color:false},
+    ];
 
+    const toggleFilter = (e) => {
+        const index = filters.findIndex((f) => f.filter === e.target.innerHTML);
+        $:filters[index].color = !filters[index].color;
+        filters = filters;
+    }
 
-        ];
+    let filtersWithColor;
+    let filterWithNames;
+    let allFalse;
+
+    $: {
+        filtersWithColor = filters.filter((filter) => filter.color);
+        filterWithNames = filtersWithColor.map((f) => f.filter);
+        allFalse = filtersWithColor.length === 0;
+    }
 </script>
 
-<TabGroup class="border-0">
-	<Tab class="m-0" bind:group={tabSet} name="tab1" value={0}>
-		<svelte:fragment slot="lead">💻</svelte:fragment>
-		<span>Machine Learning</span>
-	</Tab>
-	<Tab bind:group={tabSet} name="tab2" value={1}>
-        <svelte:fragment slot="lead">💻</svelte:fragment>
-		<span>Data Engineering</span>
-    </Tab>
-	<Tab bind:group={tabSet} name="tab3" value={2}>
-        <svelte:fragment slot="lead">💻</svelte:fragment>
-		<span>Data Analysis</span>
-    </Tab>
-	<Tab bind:group={tabSet} name="tab3" value={3}>
-        <svelte:fragment slot="lead">💻</svelte:fragment>
-		<span>Front End</span>    
-    </Tab>
-	<Tab bind:group={tabSet} name="tab3" value={4}>
-        <svelte:fragment slot="lead">💻</svelte:fragment>
-		<span>Backend</span>
-    </Tab>
-	<Tab bind:group={tabSet} name="tab3" value={5}>
-        <svelte:fragment slot="lead">💻</svelte:fragment>
-		<span>Workflow</span>
-    </Tab>
-	<!-- Tab Panels --->
-	<svelte:fragment slot="panel">
-		{#if tabSet === 0}
-        <div class="grid place-items-center">
-            <div class="w-3/4">
-                <div class="table-container table-compact">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Technology</th>
-                                <th>Profiency</th>
-                                <th>Experience</th>
-                                <th>Type</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {#each tableArr as row, i}
-                                <tr>
-                                    <td>{row.technology}</td>
-                                    <td>{row.profiency}</td>
-                                    <td>{row.experience}</td>
-                                    <td>{row.type}</td>
-                                </tr>
-                            {/each}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                            </tr>
-                        </tfoot>
-                    </table>
+
+<section class="mt-8 lg:mb-8">
+    <h1 class="text-8xl w-3/4 m-auto text-center mb-8">Technical Skills</h1>
+    <h2 class="m-auto w-3/4 mb-5">Filter by Domain</h2>
+
+    <div class="m-auto flex flex-wrap items-center w-3/4 gap-5">
+        {#each filters as filter}
+            <button on:click={toggleFilter}><span class="{filter.color ? 'bg-primary-500': 'bg-surface-500'} p-2 hover:bg-primary-500">{filter.filter}</span></button>
+        {/each}
+    </div>
+    <div class="fields m-auto flex items-center p-8  w-full mt-0 lg:w-3/4 lg:mt-5">
+        <h1 class="basis-1/3">Skill</h1>
+        <h1 class="basis-1/3">Experience</h1>
+        <h1 class="basis-1/3">Confidence</h1>
+    </div>
+
+    {#each data.summaries as {technology, profiency, experience, type}}
+        {#if allFalse}
+        <div class="m-auto flex items-center p-8 bg-surface-900 w-full mt-0 lg:w-3/4 lg:mt-5 lg:drop-shadow-[0_0_25px_rgba(255,255,255,0.10)]">
+            <h1 class="basis-1/3">{technology}</h1>
+            <h1 class="basis-1/3">{experience}</h1>
+            <div class="basis-1/3">
+                <ProgressBar label="Progress Bar" value={parseInt(profiency)} max={100} />
+            </div>
+        </div>
+        {:else if type.some(item => filterWithNames.includes(item))}
+            <div class="m-auto flex items-center p-8 bg-surface-900 w-full mt-0 lg:w-3/4 lg:mt-5 lg:drop-shadow-[0_0_25px_rgba(255,255,255,0.10)]">
+                <h1 class="basis-1/3">{technology}</h1>
+                <h1 class="basis-1/3">{experience}</h1>
+                <div class="basis-1/3">
+                    <ProgressBar label="Progress Bar" value={parseInt(profiency)} max={100} />
                 </div>
             </div>
-        </div>   
-		{:else if tabSet === 1}
-        <div class="grid place-items-center">
-            <div class="w-3/4">
-                <div class="table-container table-compact">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Front-end</th>
-                                <th>Profiency</th>
-                                <th>Experience</th>
-                                <th>Type</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {#each frontend as row, i}
-                                <tr>
-                                    <td>{row.technology}</td>
-                                    <td>{row.profiency}</td>
-                                    <td>{row.experience}</td>
-                                    <td>{row.type}</td>
-                                </tr>
-                            {/each}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>   
-        <div class="grid place-items-center">
-            <div class="w-3/4">
-                <div class="table-container table-compact">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Backend</th>
-                                <th>Profiency</th>
-                                <th>Experience</th>
-                                <th>Type</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {#each tableArr as row, i}
-                                <tr>
-                                    <td>{row.technology}</td>
-                                    <td>{row.profiency}</td>
-                                    <td>{row.experience}</td>
-                                    <td>{row.type}</td>
-                                </tr>
-                            {/each}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div>   
-		{:else if tabSet === 2}
-        <div class="grid place-items-center">
-            <div class="w-3/4">
-                <div class="table-container table-compact">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Technology</th>
-                                <th>Profiency</th>
-                                <th>Experience</th>
-                                <th>Type</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {#each tableArr as row, i}
-                                <tr>
-                                    <td>{row.technology}</td>
-                                    <td>{row.profiency}</td>
-                                    <td>{row.experience}</td>
-                                    <td>{row.type}</td>
-                                </tr>
-                            {/each}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-            </div>
-        </div> 
-        {:else if tabSet === 3}
-        (label 4)
-        {:else if tabSet === 4}
-        (label 5)
-        {:else if tabSet === 5}
-        (label 6)
-		{/if}
-	</svelte:fragment>
-</TabGroup>
- 
+        {/if}
+    {/each}
+</section>
+
+<style>
+    :global(body) {
+        height: 100%;
+        width: 100%;
+        background-image: repeating-linear-gradient(-45deg, rgba(255,255,255, 0.1), rgba(255,255,255, 0.1) 1px, transparent 1px, transparent 6px);
+    background-size: 4px 4px;
+    }
+</style>
+
