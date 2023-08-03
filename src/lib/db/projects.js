@@ -9,7 +9,7 @@ export const projects = [
         training a recommender system based off time series data,
         and building a realtime website that shows heartrate and recommendations.`,
         github: 'https://github.com/spencerrazor/heartbeatbeat',
-        website: 'https://github.com/spencerrazor/heartbeatbeat',
+        website: '',
         image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7_HT_3dSC6StBbOFFnFoIhrp1wqQdnDP5_w&usqp=CAU'
     },
     {

@@ -10,7 +10,7 @@
     </div>
     
     <img class="w-full lg:w-auto m-auto" src={data.blog.image}/>
-    <div class="lg:mb-5 h-50 lg:w-3/4 m-auto bg-surface-900 p-20 b lg:rounded-md text-left text-4xl">
+    <div class="lg:mb-5 h-50 lg:w-3/4 m-auto bg-surface-900 p-10 lg:p-20 b lg:rounded-md text-left text-4xl">
         <p class="text-xl mt-2">{data.blog.description}</p>
         <p class="text-lg">{@html data.blog.content}</p>
     </div>

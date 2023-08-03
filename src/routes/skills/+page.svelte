@@ -54,14 +54,14 @@
 
 
 <section class="mt-8 lg:mb-8">
-    <h1 class="text-8xl w-3/4 m-auto text-center mb-8">Technical Skills</h1>
-    <h2 class="m-auto w-3/4 mb-5">Filter by Domain</h2>
+    <h1 class="text-6xl lg:text-8xl w-3/4 m-auto text-center mb-8">Technical Skills</h1>
+    <!-- <h2 class="m-auto w-3/4 mb-5">Filter by Domain</h2>
 
     <div class="m-auto flex flex-wrap items-center w-3/4 gap-5">
         {#each filters as filter, i}
             <button on:click={toggleFilter(i)} class="p-2 hover:bg-primary-500">{filter.filter}</button>
         {/each}
-    </div>
+    </div> -->
     <div class="fields m-auto flex items-center p-8  w-full mt-0 lg:w-3/4 lg:mt-5">
         <h1 class="basis-1/3">Skill</h1>
         <h1 class="basis-1/3">Experience</h1>

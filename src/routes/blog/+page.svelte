@@ -8,7 +8,7 @@
 </script>
 
 <section>
-    <h1 class="text-center text-8xl mt-8 mb-8">Blogs</h1>
+    <h1 class="text-center text-6xl lg:text-8xl mt-8 mb-8">Blogs</h1>
     {#each data.summaries as { slug, title, description, image, date}, i}
     <a href='/blog/{slug}' class="block lg:w-3/4 m-auto bg-surface-900 hover:bg-surface-800 p-20 lg:mb-8 text-2xl lg:drop-shadow-[0_0_25px_rgba(255,255,255,0.20)]">
         <div class="flex flex-col lg:flex-row">

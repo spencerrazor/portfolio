@@ -9,10 +9,10 @@
 </script>
 
 <section class="m-auto lg:w-4/5 lg:mb-8 drop-shadow-[0_0_25px_rgba(255,255,255,0.10)]">
-    <h1 class="text-center text-8xl mt-8 mb-8">Projects</h1>
+    <h1 class="text-center text-6xl lg:text-8xl mt-8 mb-8">Projects</h1>
     {#each years as _year}
         <div class="flex-col lg:flex-row flex mt-16">
-            <h1 class="text-8xl mb-8 basis-1/3 text-center">
+            <h1 class="text-6xl lg:text-8xl mb-8 basis-1/3 text-center">
                 {_year}
             </h1>
             <div class="logo-cloud grid-cols-1 lg:!grid-cols- lg:gap-1 basis-2/3 rounded-none">
