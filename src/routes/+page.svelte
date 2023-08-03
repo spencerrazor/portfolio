@@ -1,69 +1,66 @@
 <script>
     let gptanswer = 'I know nothing about Spencer at the moment';
     import { PUBLIC_OPENAI_API_KEY } from '$env/static/public';
-    let answer;
+    export let form;
 
     let inputText = '';
 
-
-    async function getChroma(e) {
-        const response = await fetch('/api/chroma', {
-                method: 'POST',
-                body: JSON.stringify([0,1,2,3,4]),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-
-            const status = await response.json(); 
-            console.log(status);
-    }
-
-    async function handleSubmit(event) {
-        if (event.key === 'Enter') {
+    // async function handleSubmit(event) {
+    //     console.log(event.key)
+    //     if (event.key === 'Enter') {
             
-            const response = await fetch('/api/askquestion', {
-                method: 'POST',
-                body: JSON.stringify({"prompt":inputText}),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            console.log(response)
-            
-            const responseData = await response.json();
-
-            answer = responseData['answer'];
-            inputText = '';
-
-        //     for await (const chunk of streamAsyncIterator(response.body)) {
-        //         const textDecoder = new TextDecoder();
-        //         const decodedString = textDecoder.decode(chunk);
-
-        //         console.log(decodedString); // Output: "abcdefgh"
-        //     }
-        }
-
-    }
-    // async function* streamAsyncIterator(stream) {
-    //     // Get a lock on the stream
-    //     const reader = stream.getReader();
-
-    //     try {
-    //         while (true) {
-    //         // Read from the stream
-    //         const {done, value} = await reader.read();
-    //         // Exit if we're done
-    //         if (done) return;
-    //         // Else yield the chunk
-    //         yield value;
+    //         try {
+    //             const response = await fetch('/api/askquestion', {
+    //                 method: 'POST',
+    //                 body: JSON.stringify({"prompt":inputText}),
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 }
+    //             });
+                
+    //             const responseData = await response.json();
+    
+    //             answer = responseData['answer'];
+    //             inputText = '';
+    //         } catch {
+    //             console.log('something bad happened')
     //         }
+            
+
+    //     //     for await (const chunk of streamAsyncIterator(response.body)) {
+    //     //         const textDecoder = new TextDecoder();
+    //     //         const decodedString = textDecoder.decode(chunk);
+
+    //     //         console.log(decodedString); // Output: "abcdefgh"
+    //     //     }
     //     }
-    //     finally {
-    //         reader.releaseLock();
-    //     }
+
     // }
+    // // async function* streamAsyncIterator(stream) {
+    // //     // Get a lock on the stream
+    // //     const reader = stream.getReader();
+
+    // //     try {
+    // //         while (true) {
+    // //         // Read from the stream
+    // //         const {done, value} = await reader.read();
+    // //         // Exit if we're done
+    // //         if (done) return;
+    // //         // Else yield the chunk
+    // //         yield value;
+    // //         }
+    // //     }
+    // //     finally {
+    // //         reader.releaseLock();
+    // //     }
+    // // }
+
+let loading = false;
+const handleSubmit = () => {
+    loading = true;
+}
+import { Wave } from 'svelte-loading-spinners';
+
 
 </script>
 <section class="lg:h-[calc(100vh-100px)] h-[calc(100vh-50px)] drop-shadow-[0_0_25px_rgba(255,255,255,0.20)]">
@@ -74,12 +71,21 @@
                 <label class="label">
                     <span class="h3 block pb-5">Ask a question❓(e.g. What experience do you have with Python?)</span>
                     <!-- (input here) -->
-                    <form on:submit|preventDefault={handleSubmit}>
-                        <input bind:value={inputText} on:keydown={handleSubmit} class="input p-1 pl-3" title="Input (text)" type="text" placeholder="Ask the AI Spencer 🤖" />
+                    <form method="POST" on:submit={handleSubmit}>
+                        <input name="question" bind:value={inputText} class="input p-1 pl-3" title="Input (text)" type="text" placeholder="Ask the AI Spencer 🤖" />
+                        <button class="hidden">Ask Away</button>
                     </form>
                 </label>
             </div>
-            <div class="p-4 h-full overflow-y-auto basis-1/3">{answer ? answer : ''}</div>
+            {#if loading}
+                <div class="flex items-center gap-5">
+                    <p class="text-lg">Thinking</p>
+                    <Wave size="40" color="#FF3E00" unit="px" duration="1s" />
+
+                </div>
+            {:else}
+                <div class="p-4 h-full overflow-y-auto basis-1/3">{(form?.answer ? form?.answer : '')}</div>
+            {/if}
         </div> 
 
 </section>

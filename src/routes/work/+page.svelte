@@ -17,7 +17,7 @@
 <section class="lg:h-[calc(100vh-100px-4rem)] flex items-center h-screen lg:mt-8 lg:mb-8 lg:drop-shadow-[0_0_25px_rgba(255,255,255,0.20)]">
 	<!-- <h1 class="text-center text-8xl mt-8 mb-8">Projects</h1> -->
 	<div class="m-auto w-full lg:w-3/4 bg-surface-900 h-full flex flex-col justify-around items-center pt-8 pb-8">
-		<div class="pl-16 pr-16 w-full flex justify-around gap-5">
+		<div class="pl-16 pr-16 w-full lg:flex justify-around gap-5">
 			<h1 class="text-4xl lg:text-8xl basis-1/3 p-5">
 				{timeline[0,value].year}
 			</h1>

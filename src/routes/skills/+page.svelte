@@ -25,6 +25,19 @@
         const index = filters.findIndex((f) => f.filter === e.target.innerHTML);
         $:filters[index].color = !filters[index].color;
         filters = filters;
+        updateColors(i)
+    }
+    
+    let colors = ['bg-surface-500','bg-surface-500','bg-surface-500',
+    'bg-surface-500','bg-surface-500','bg-surface-500','bg-surface-500'
+    ,'bg-surface-500','bg-surface-500'];
+    const updateColors = (i) => {
+        if (colors[i] === 'bg-surface-500') {
+            colors[i] = 'bg-primary-500';
+        } else {
+            colors[i] = 'bg-surface-500';
+        }
+        colors = colors;
     }
 
     let filtersWithColor;
@@ -35,6 +48,7 @@
         filtersWithColor = filters.filter((filter) => filter.color);
         filterWithNames = filtersWithColor.map((f) => f.filter);
         allFalse = filtersWithColor.length === 0;
+        
     }
 </script>
 
@@ -44,8 +58,8 @@
     <h2 class="m-auto w-3/4 mb-5">Filter by Domain</h2>
 
     <div class="m-auto flex flex-wrap items-center w-3/4 gap-5">
-        {#each filters as filter}
-            <button on:click={toggleFilter}><span class="{filter.color ? 'bg-primary-500': 'bg-surface-500'} p-2 hover:bg-primary-500">{filter.filter}</span></button>
+        {#each filters as filter, i}
+            <button on:click={toggleFilter(i)} class="p-2 hover:bg-primary-500">{filter.filter}</button>
         {/each}
     </div>
     <div class="fields m-auto flex items-center p-8  w-full mt-0 lg:w-3/4 lg:mt-5">
