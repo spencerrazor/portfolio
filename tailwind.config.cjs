@@ -9,6 +9,9 @@ const config = {
 	theme: {
 		extend: {}
 	},
+	future: {
+		hoverOnlyWhenSupported: true,
+	},
 
 	plugins: [...require('@skeletonlabs/skeleton/tailwind/skeleton.cjs')()]
 };

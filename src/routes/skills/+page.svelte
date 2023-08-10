@@ -9,28 +9,22 @@
 
     export let data;
 
-    let filters = [
-        {filter:'Front-end', color:false},
-        {filter:'Back-end', color:false},
-        {filter:'Database', color:false},
-        {filter:'Cloud', color:false},
-        {filter:'Data Science', color:false},
-        {filter:'Data Analysis', color:false},
-        {filter:'Data Engineering', color:false},
-        {filter:'Machine Learning', color:false},
-        {filter:'Deep Learning', color:false},
-    ];
+    let filters = ['Front-end', 'Back-end', 'Database', 'Cloud', 'Data Science',
+    'Data Analysis', 'Data Engineering', 'Machine Learning', 'Deep Learning'];
+    let selectedFilters = [];
 
-    const toggleFilter = (e) => {
-        const innerHTML = e.target.innerHTML || '';
-        console.log(innerHTML)
-        const index = filters.findIndex((f) => f.filter === innerHTML);
-        console.log(index)
-        if (index !== -1) {
-            filters[index].color = !filters[index].color;
-            filters = [...filters]; // Create a new array to trigger reactivity
+    function selectFilter(filter) {
+        //If selected Filter is in selectedFilters array, remove it
+        if (selectedFilters.includes(filter)) {
+            selectedFilters = selectedFilters.filter((f) => {
+                return f != filter;
+            });
+        } else {
+            //If selected Filter is not in selectedFilters array, add it
+            selectedFilters = [...selectedFilters, filter];
         }
     }
+
     let allFiltersFalse;
     let filterNames;
     $: {
@@ -48,7 +42,7 @@
     <h2 class="m-auto w-3/4 mb-5">Filter by Domain</h2>
     <div class="m-auto flex flex-wrap items-center w-3/4 gap-5">
         {#each filters as filter, i}
-            <button on:click={toggleFilter} class="p-2 hover:bg-primary-500 {filter.color ? "bg-primary-500" : "bg-surface-900"}">{filter.filter}</button>
+            <button on:click={() => { selectFilter(filter) }} class="p-2 hover:bg-primary-500 {selectedFilters.includes(filter) ? "bg-primary-500" : "bg-surface-900"}">{filter}</button>
         {/each}
     </div>
     <div class="fields m-auto flex items-center p-8  w-full mt-0 lg:w-3/4 lg:mt-5">
@@ -58,7 +52,7 @@
     </div>
 
     {#each data.summaries as {technology, profiency, experience, type}}
-        {#if allFiltersFalse}
+        {#if selectedFilters.length == 0}
         <div class="m-auto flex items-center p-8 bg-surface-900 w-full mt-0 lg:w-3/4 lg:mt-5 lg:drop-shadow-[0_0_25px_rgba(255,255,255,0.10)]">
             <h1 class="basis-1/3">{technology}</h1>
             <h1 class="basis-1/3">{experience}</h1>
@@ -66,7 +60,7 @@
                 <ProgressBar label="Progress Bar" value={parseInt(profiency)} max={100} />
             </div>
         </div>
-        {:else if type.some(item => filterNames.includes(item))}
+        {:else if type.some(item => selectedFilters.includes(item))}
             <div class="m-auto flex items-center p-8 bg-surface-900 w-full mt-0 lg:w-3/4 lg:mt-5 lg:drop-shadow-[0_0_25px_rgba(255,255,255,0.10)]">
                 <h1 class="basis-1/3">{technology}</h1>
                 <h1 class="basis-1/3">{experience}</h1>
